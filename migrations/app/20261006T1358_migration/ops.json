@@ -1,0 +1,260 @@
+[
+  {
+    "id": "column.public.Reminder.claimedAt",
+    "label": "Add column \"claimedAt\" to \"Reminder\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "column",
+        "name": "claimedAt",
+        "table": "Reminder"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure column \"claimedAt\" is missing",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"information_schema\".\"columns\" WHERE (\"table_schema\" = $1 AND \"table_name\" = $2 AND \"column_name\" = $3)) AS \"result\"",
+        "params": [
+          "public",
+          "Reminder",
+          "claimedAt"
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add column \"claimedAt\"",
+        "sql": "ALTER TABLE \"public\".\"Reminder\" ADD COLUMN \"claimedAt\" timestamptz"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify column \"claimedAt\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"information_schema\".\"columns\" WHERE (\"table_schema\" = $1 AND \"table_name\" = $2 AND \"column_name\" = $3)) AS \"result\"",
+        "params": [
+          "public",
+          "Reminder",
+          "claimedAt"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "column.public.Reminder.mentionUser",
+    "label": "Add column \"mentionUser\" to \"Reminder\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "column",
+        "name": "mentionUser",
+        "table": "Reminder"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure column \"mentionUser\" is missing",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"information_schema\".\"columns\" WHERE (\"table_schema\" = $1 AND \"table_name\" = $2 AND \"column_name\" = $3)) AS \"result\"",
+        "params": [
+          "public",
+          "Reminder",
+          "mentionUser"
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add column \"mentionUser\"",
+        "sql": "ALTER TABLE \"public\".\"Reminder\" ADD COLUMN \"mentionUser\" bool DEFAULT true NOT NULL"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify column \"mentionUser\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"information_schema\".\"columns\" WHERE (\"table_schema\" = $1 AND \"table_name\" = $2 AND \"column_name\" = $3)) AS \"result\"",
+        "params": [
+          "public",
+          "Reminder",
+          "mentionUser"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "column.public.Reminder.status",
+    "label": "Add column \"status\" to \"Reminder\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "column",
+        "name": "status",
+        "table": "Reminder"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure column \"status\" is missing",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"information_schema\".\"columns\" WHERE (\"table_schema\" = $1 AND \"table_name\" = $2 AND \"column_name\" = $3)) AS \"result\"",
+        "params": [
+          "public",
+          "Reminder",
+          "status"
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add column \"status\"",
+        "sql": "ALTER TABLE \"public\".\"Reminder\" ADD COLUMN \"status\" text DEFAULT 'pending' NOT NULL"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify column \"status\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"information_schema\".\"columns\" WHERE (\"table_schema\" = $1 AND \"table_name\" = $2 AND \"column_name\" = $3)) AS \"result\"",
+        "params": [
+          "public",
+          "Reminder",
+          "status"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "column.public.Reminder.channelId",
+    "label": "Add column \"channelId\" to \"Reminder\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "column",
+        "name": "channelId",
+        "table": "Reminder"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure column \"channelId\" is missing",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"information_schema\".\"columns\" WHERE (\"table_schema\" = $1 AND \"table_name\" = $2 AND \"column_name\" = $3)) AS \"result\"",
+        "params": [
+          "public",
+          "Reminder",
+          "channelId"
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add column \"channelId\"",
+        "sql": "ALTER TABLE \"public\".\"Reminder\" ADD COLUMN \"channelId\" text NOT NULL"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify column \"channelId\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"information_schema\".\"columns\" WHERE (\"table_schema\" = $1 AND \"table_name\" = $2 AND \"column_name\" = $3)) AS \"result\"",
+        "params": [
+          "public",
+          "Reminder",
+          "channelId"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "alterNullability.setNotNull.Reminder.channelId",
+    "label": "Set NOT NULL on \"Reminder\".\"channelId\"",
+    "operationClass": "destructive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "column",
+        "name": "channelId",
+        "table": "Reminder"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure column \"channelId\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"information_schema\".\"columns\" WHERE (\"table_schema\" = $1 AND \"table_name\" = $2 AND \"column_name\" = $3)) AS \"result\"",
+        "params": [
+          "public",
+          "Reminder",
+          "channelId"
+        ]
+      },
+      {
+        "description": "ensure no NULL values in \"channelId\"",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"public\".\"Reminder\" WHERE \"channelId\" IS NULL) AS \"result\"",
+        "params": []
+      }
+    ],
+    "execute": [
+      {
+        "description": "set NOT NULL on \"channelId\"",
+        "sql": "ALTER TABLE \"public\".\"Reminder\" ALTER COLUMN \"channelId\" SET NOT NULL"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify column \"channelId\" is NOT NULL",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"information_schema\".\"columns\" WHERE (\"table_schema\" = $1 AND \"table_name\" = $2 AND \"column_name\" = $3 AND \"is_nullable\" = $4)) AS \"result\"",
+        "params": [
+          "public",
+          "Reminder",
+          "channelId",
+          "NO"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "checkConstraint.Reminder.Reminder_status_check_d21e5f1b",
+    "label": "Add check constraint \"Reminder_status_check_d21e5f1b\" on \"Reminder\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "checkConstraint",
+        "name": "Reminder_status_check_d21e5f1b",
+        "table": "Reminder"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure constraint \"Reminder_status_check_d21e5f1b\" does not exist",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "Reminder_status_check_d21e5f1b",
+          "public",
+          "\"public\".\"Reminder\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add check constraint \"Reminder_status_check_d21e5f1b\"",
+        "sql": "ALTER TABLE \"public\".\"Reminder\" ADD CONSTRAINT \"Reminder_status_check_d21e5f1b\" CHECK (\"status\" IN ('pending', 'processing', 'completed'))"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify constraint \"Reminder_status_check_d21e5f1b\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "Reminder_status_check_d21e5f1b",
+          "public",
+          "\"public\".\"Reminder\""
+        ]
+      }
+    ]
+  }
+]

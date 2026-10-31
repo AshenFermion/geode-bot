@@ -1,0 +1,44 @@
+[
+  {
+    "id": "column.public.Reminder.intervalSeconds",
+    "label": "Add column \"intervalSeconds\" to \"Reminder\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "column",
+        "name": "intervalSeconds",
+        "table": "Reminder"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure column \"intervalSeconds\" is missing",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"information_schema\".\"columns\" WHERE (\"table_schema\" = $1 AND \"table_name\" = $2 AND \"column_name\" = $3)) AS \"result\"",
+        "params": [
+          "public",
+          "Reminder",
+          "intervalSeconds"
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add column \"intervalSeconds\"",
+        "sql": "ALTER TABLE \"public\".\"Reminder\" ADD COLUMN \"intervalSeconds\" int4"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify column \"intervalSeconds\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"information_schema\".\"columns\" WHERE (\"table_schema\" = $1 AND \"table_name\" = $2 AND \"column_name\" = $3)) AS \"result\"",
+        "params": [
+          "public",
+          "Reminder",
+          "intervalSeconds"
+        ]
+      }
+    ]
+  }
+]

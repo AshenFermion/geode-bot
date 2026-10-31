@@ -1,0 +1,21 @@
+// use prisma-8
+enum ReminderStatus {
+  @@type("pg/text@1")
+  pending = "pending"
+  processing = "processing"
+  completed = "completed"
+  failed = "failed"
+}
+
+model Reminder {
+  id          Int                 @id @default(autoincrement())
+  channelId       String
+  userId          String
+  message         String
+  mentionUser     Boolean             @default(true)
+  intervalSeconds Int?
+  status          ReminderStatus      @default(pending)
+  remindAt        TimestamptzJsDate
+  createdAt       TimestamptzJsDate   @default(now())
+  claimedAt       TimestamptzJsDate?
+}
