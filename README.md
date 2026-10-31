@@ -31,7 +31,7 @@ If you want to run Geode locally, you'll need Node.js, a Discord bot application
 Clone the repository:
 
 ```bash
-git clone YOUR_GITHUB_REPOSITORY_URL
+git clone https://github.com/AshenFermion/geode-bot
 cd Geode
 ```
 
